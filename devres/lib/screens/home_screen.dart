@@ -31,7 +31,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Future<void> _launch(String url) async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (await canLaunchUrl(uri)) {
+      launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
   }
 
   @override
@@ -64,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       children: [
         Row(
           children: [
+            // Avatar with glow effect
             Container(
               width: 72,
               height: 72,
@@ -82,13 +85,40 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              child: const Center(
-                child: Text(
-                  'HY',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
+              child: Padding(
+                padding: const EdgeInsets.all(2), // border gap
+                child: ClipOval(
+                  child: Image.network(
+                    'https://raw.githubusercontent.com/HarshYadav152/resources/main/images/hy152/152.jpg',
+                    fit: BoxFit.cover,
+                    // Fallback agar image load na ho
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: const Color(0xFF0A0A0F),
+                        child: const Center(
+                          child: Text(
+                            'HY',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        color: const Color(0xFF0A0A0F),
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFF00F5FF),
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -147,27 +177,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _SectionTitle(title: '// about.txt'),
+          const _SectionTitle(title: '// about.txt'),
           const SizedBox(height: 12),
           const Text(
             'Someone who gets very excited when something new in tech comes along '
             'and is always eager to learn. I thrive at the intersection of clean code '
             'and creative problem solving.',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-              height: 1.7,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14, height: 1.7),
           ),
           const SizedBox(height: 12),
           const Text(
             'Building tech that actually helps people, playing with emerging tech, '
             'and collaborating with devs & designers worldwide — that\'s what drives me.',
-            style: TextStyle(
-              color: Colors.white54,
-              fontSize: 13,
-              height: 1.7,
-            ),
+            style: TextStyle(color: Colors.white54, fontSize: 13, height: 1.7),
           ),
           const SizedBox(height: 16),
           Wrap(
@@ -220,9 +242,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           const _SectionTitle(title: '// stats.json'),
           const SizedBox(height: 16),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
+            children: [
               _StatItem(value: '7+', label: 'Projects'),
               _StatItem(value: '5+', label: 'Tech Stacks'),
               _StatItem(value: '152', label: 'Universe ID'),
@@ -341,10 +363,7 @@ class _StatItem extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(color: Colors.white38, fontSize: 11),
-        ),
+        Text(label, style: const TextStyle(color: Colors.white38, fontSize: 11)),
       ],
     );
   }
