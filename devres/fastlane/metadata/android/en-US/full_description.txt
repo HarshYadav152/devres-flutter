@@ -1,0 +1,12 @@
+HarshYadav152 is a Developer Resource Hub built with Flutter.
+
+FEATURES:
+★ Home — Bio, avatar, quick stats
+★ Projects — Browse 7+ open source projects with links
+★ Skills — 40+ technologies across 5 categories
+★ Connect — All social channels in one place
+★ About — NPM package, collab info, easter eggs
+
+100% Open Source. No tracking. No ads. No login required.
+
+Built with Flutter ❤️
